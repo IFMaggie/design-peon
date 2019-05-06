@@ -7,7 +7,7 @@ module.exports = {
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
-    "semi": [0], // 关闭分好结尾
+    "semi": [0], // 关闭分号结尾
     "no-unused-vars": [2, {
       // 允许声明未使用变量
       "vars": "local",
