@@ -1,0 +1,85 @@
+// 页面共用样式
+@import 'reset';
+@import 'tools';
+
+[v-cloak] {
+  display: none !important;
+}
+
+.wrap {
+  margin: 0 auto;
+  width: 1280px;
+}
+
+.h5-wrap {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.Hide {
+  display: none !important;
+}
+
+.clearfix {
+  display: block;
+  zoom: 1;
+
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-1 {
+  display: block;
+  flex: 1;
+  width: 0;
+}
+
+// text overflow hidden
+.toh {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// retina border
+.bb-line {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    bottom: -50%;
+    left: -50%;
+    right: -50%;
+    transform: scale(0.5);
+    border: 1px solid;
+    pointer-events: none;
+  }
+}
+
+.mod-board {
+  padding: .533rem .4rem;
+  background: #fff;
+
+  &:before {
+    border-color: #d7d7d7;
+    border-width: 1px 0;
+  }
+
+  p {
+    line-height: .56rem;
+    font-size: .373rem;
+    color: #666;
+  }
+}

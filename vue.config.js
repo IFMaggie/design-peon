@@ -1,78 +1,41 @@
 const path = require("path");
 const _staticUrl = require("./entry.path");
 
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
+
 module.exports = {
-  publicPath: "/",
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   outputDir: "dist",
-  assetsDir: "./",
-  filenameHashing: false, // 打包后的文件是否加 hash
+  filenameHashing: false,
   css: {
     extract: true,
-    sourceMap: false,
-    modules: false,
     loaderOptions: {
-      less: {
-        javascriptEnabled: true
+      css: {
+        // options here will be passed to css-loader
+      },
+      postcss: {
+        // options here will be passed to postcss-loader
+        plugins: [
+          require('autoprefixer'),
+          require('postcss-px2rem')({
+            remUnit: 75
+          })
+        ]
       }
-    }
-  },
-  pluginOptions: {
-    "style-resources-loader": {
-      preProcessor: "less",
-      patterns: [
-        // 下面这段是自己加的，根据自己文件的位置来修改
-        path.resolve(__dirname, "./less/common/common.less")
-      ]
     }
   },
   chainWebpack: config => {
-    config.module
-      .rule("images")
-      .use("image-webpack-loader")
-      .loader("image-webpack-loader")
-      .options({
-        bypassOnDebug: true
-      })
-      .end();
     // 配置别名
     config.resolve.alias
-      .set("@src", path.join(__dirname, "src"))
-      .set("@less", path.join(__dirname, "less"));
+      .set('@', resolve('src'))
+      .set('@components', resolve('src/components'))
+      .set('@assets', resolve("src/assets"))
+      .set('@lib', resolve('src/lib'))
+      .set('@utils', resolve('src/utils'))
+      .set('@pages', resolve('src/pages'))
+      .set('@less', resolve('less'));
   },
-  configureWebpack: () => ({
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          // vendor:{
-          //   chunks:"all",
-          //   test: /node_modules/,
-          //   name:"vendor",
-          //   minChunks: 1,
-          //   maxInitialRequests: 5,
-          //   minSize: 0,
-          //   priority:100,
-          // },
-          common: {
-            chunks: "all",
-            test: /[\\/]src[\\/]js[\\/]/,
-            name: "common",
-            minChunks: 2,
-            maxInitialRequests: 5,
-            minSize: 0,
-            priority: 60
-          },
-          styles: {
-            name: "common",
-            test: /\.(le|sc|c)ss$/,
-            chunks: "all",
-            enforce: true
-          },
-          runtimeChunk: {
-            name: "manifest"
-          }
-        }
-      }
-    }
-  }),
   pages: _staticUrl
 };
