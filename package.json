@@ -13,7 +13,7 @@
     "core-js": "^2.6.5",
     "file-saver": "^2.0.2",
     "image-webpack-loader": "5.0.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lib-flexible": "^0.3.2",
     "mint-ui": "^2.2.13",
     "path": "^0.12.7",
